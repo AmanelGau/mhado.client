@@ -34,7 +34,7 @@ const CharacterItem: React.FC<{ character: CharacterType }> = ({
   const navigate = useNavigate();
 
   return (
-    <Root onClick={() => navigate("/character")}>
+    <Root onClick={() => navigate("/character/" + character.id)}>
       <ProfilePicture src="/CharacterPicturePlaceholder.jpg" />
       <Name variant="subtitle2">
         {character.firstname} {character.lastname}

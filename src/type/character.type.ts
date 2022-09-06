@@ -1,22 +1,22 @@
 type CharacterType = {
-  id: Number;
+  id: number;
   firstname: String;
   lastname: String;
   archetype: String;
-  experience: Number;
-  level: Number;
-  maxExperience: Number;
-  statPoint: Number;
+  experience: number;
+  level: number;
+  maxExperience: number;
+  statPoint: number;
   stats: StatsType;
 };
 
 type StatsType = {
-  agility: Number;
-  exploration: Number;
-  luck: Number;
-  resistance: Number;
-  spirit: Number;
-  strength: Number;
+  agility: number;
+  exploration: number;
+  luck: number;
+  resistance: number;
+  spirit: number;
+  strength: number;
 };
 
 type CharacterCreationFormType = {

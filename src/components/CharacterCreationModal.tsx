@@ -20,7 +20,6 @@ const CustomModal = styled(Modal)({
 const ModalPaper = styled(Paper)({
   borderRadius: 20,
   width: 860,
-  height: 360,
   display: "flex",
   flexDirection: "column",
   gap: 10,
@@ -35,6 +34,7 @@ const FormContainer = styled(Box)({
   marginRight: "auto",
   gap: 20,
   textAlign: "center",
+  paddingBottom: "10px",
 });
 
 const ButtonContainer = styled(Box)({
@@ -43,9 +43,15 @@ const ButtonContainer = styled(Box)({
   marginTop: 10,
 });
 
-const FormButton = styled(Button)({
+const FormButton = styled(Button)(({ color, theme }) => ({
   flexGrow: 1,
-});
+  "&:hover": {
+    backgroundColor:
+      color === "error" ? theme.palette.error.main : theme.palette.primary.main,
+    color: "white",
+    fontWeight: "bold",
+  },
+}));
 
 const intialFormValues: CharacterCreationFormType = {
   firstname: "",
@@ -125,7 +131,7 @@ const CharacterCreationModal: React.FC<{
             <FormButton variant="outlined" onClick={() => onSubmit(form)}>
               Créer
             </FormButton>
-            <FormButton variant="contained" color="error" onClick={onClose}>
+            <FormButton variant="outlined" color="error" onClick={onClose}>
               Annuler
             </FormButton>
           </ButtonContainer>
