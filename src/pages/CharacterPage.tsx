@@ -1,11 +1,13 @@
-import { Card, styled, Tab, Tabs, Typography } from "@mui/material";
+import { Card, IconButton, styled, Tab, Tabs, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import StatsTab from "../components/characterTab/StatsTab";
 import { CharacterType } from "../type/character.type";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import api from "../_api/api";
 import Page from "./Page";
+import AddExperienceModal from "../components/AddExperienceModal";
 
 const lightBackground = "#FEFCEC";
 
@@ -29,6 +31,11 @@ const TabsContainer = styled(Card)({
 const CustomTabs = styled(Tabs)({
   backgroundColor: darkBackground,
   paddingTop: "50px",
+});
+
+const InfoBox = styled(Box)({
+  display: "flex",
+  justifyContent: "space-around",
 });
 
 const CustomTab = styled(Tab)({
@@ -68,6 +75,7 @@ const CharacterPage = () => {
   const location = useLocation();
   const [character, setCharacter] = useState<CharacterType>();
   const [reload, setReload] = useState<number>(0);
+  const [openAddXpModal, setOpenAddXpModal] = useState<boolean>(false);
 
   useEffect(() => {
     const id = location.pathname.replace("/character/", "");
@@ -140,6 +148,20 @@ const CharacterPage = () => {
           <TabsContainer>
             {character && (
               <>
+                <InfoBox>
+                  <Typography variant="subtitle1">
+                    Classe: {character.archetype}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Niveau: {character.level}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    Experience: {character.experience}
+                    <IconButton onClick={() => setOpenAddXpModal(true)}>
+                      <AddRoundedIcon />
+                    </IconButton>
+                  </Typography>
+                </InfoBox>
                 <Typography variant="h3">
                   {character.firstname} {character.lastname}
                 </Typography>
@@ -152,6 +174,14 @@ const CharacterPage = () => {
           </TabsContainer>
         </RightSide>
       </Box>
+      {character && (
+        <AddExperienceModal
+          open={openAddXpModal}
+          onClose={() => setOpenAddXpModal(false)}
+          character={character}
+          reload={() => setReload(reload + 1)}
+        />
+      )}
     </Page>
   );
 };
