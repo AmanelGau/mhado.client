@@ -105,16 +105,16 @@ const CharacterCreationModal: React.FC<{
     }
   }, [character]);
 
-  const onSubmit = (from: CharacterCreationFormType) => {
+  const onSubmit = async (form: CharacterCreationFormType) => {
     try {
       if (update) {
         if (character === undefined) {
           throw new Error("No Character");
         } else {
-          api.put("/character/" + character.id, null, { params: form });
+          await api.put("/character/" + character.id, null, { params: form });
         }
       } else {
-        api.post("/character", form);
+        await api.post("/character", form);
       }
       refetch();
       onClose();
