@@ -41,9 +41,8 @@ const InfoBox = styled(Box)({
 const CustomTab = styled(Tab)({
   backgroundImage:
     "linear-gradient(90deg, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0.75) 50%, rgba(0,0,0,0) 100%)",
-  transitionDuration: "0.2s",
   border: "none",
-  maxHeight: "24px",
+  minHeight: "32px",
   padding: "0 !important",
   zIndex: 3,
   "&:hover , &.active": {
@@ -83,11 +82,6 @@ const CharacterPage = () => {
       setCharacter(res.data);
     });
   }, [location, reload]);
-
-  useEffect(() => {
-    console.log(tabValue);
-  }, [tabValue]);
-
   return (
     <Page
       title={
