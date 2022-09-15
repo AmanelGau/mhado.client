@@ -1,8 +1,8 @@
 type CharacterType = {
   id: number;
-  firstname: String;
-  lastname: String;
-  archetype: String;
+  firstname: string;
+  lastname: string;
+  archetype: string;
   experience: number;
   level: number;
   maxExperience: number;

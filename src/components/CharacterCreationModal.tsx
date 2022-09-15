@@ -7,8 +7,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useReducer } from "react";
-import { CharacterCreationFormType } from "../type/character.type";
+import React, { useEffect, useReducer } from "react";
+import {
+  CharacterCreationFormType,
+  CharacterType,
+} from "../type/character.type";
 import api from "../_api/api";
 
 const CustomModal = styled(Modal)({
@@ -81,24 +84,44 @@ const CharacterCreationModal: React.FC<{
   open: boolean;
   onClose: () => void;
   refetch: () => void;
-}> = ({ open, onClose, refetch }) => {
+  update?: boolean;
+  character?: CharacterType;
+}> = ({ open, onClose, refetch, update, character }) => {
   const [form, dispatchForm] = useReducer(
     reducer,
     intialFormValues,
     () => intialFormValues
   );
 
+  useEffect(() => {
+    if (character !== undefined) {
+      intialFormValues.firstname = character.firstname;
+      intialFormValues.lastname = character.lastname;
+      intialFormValues.archetype = character.archetype;
+    } else {
+      intialFormValues.firstname = "";
+      intialFormValues.lastname = "";
+      intialFormValues.archetype = "";
+    }
+  }, [character]);
+
   const onSubmit = (from: CharacterCreationFormType) => {
-    api
-      .post("/character", form)
-      .then(() => {
-        refetch();
-        onClose();
-        dispatchForm({ type: "reset", payload: "" });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      if (update) {
+        if (character === undefined) {
+          throw new Error("No Character");
+        } else {
+          api.put("/character/" + character.id, null, { params: form });
+        }
+      } else {
+        api.post("/character", form);
+      }
+      refetch();
+      onClose();
+      dispatchForm({ type: "reset", payload: "" });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -129,9 +152,17 @@ const CharacterCreationModal: React.FC<{
           />
           <ButtonContainer>
             <FormButton variant="outlined" onClick={() => onSubmit(form)}>
-              Créer
+              {update ? "Modifier" : "Créer"}
             </FormButton>
-            <FormButton variant="outlined" color="error" onClick={onClose}>
+            <FormButton
+              variant="outlined"
+              color="error"
+              onClick={() => {
+                dispatchForm({ type: "reset", payload: "" });
+
+                onClose();
+              }}
+            >
               Annuler
             </FormButton>
           </ButtonContainer>

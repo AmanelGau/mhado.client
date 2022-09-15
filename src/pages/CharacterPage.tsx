@@ -8,6 +8,8 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import api from "../_api/api";
 import Page from "./Page";
 import AddExperienceModal from "../components/AddExperienceModal";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import CharacterCreationModal from "../components/CharacterCreationModal";
 
 const lightBackground = "#FEFCEC";
 
@@ -75,6 +77,7 @@ const CharacterPage = () => {
   const [character, setCharacter] = useState<CharacterType>();
   const [reload, setReload] = useState<number>(0);
   const [openAddXpModal, setOpenAddXpModal] = useState<boolean>(false);
+  const [openChangeName, setOpenChangeName] = useState<boolean>(false);
 
   useEffect(() => {
     const id = location.pathname.replace("/character/", "");
@@ -156,8 +159,24 @@ const CharacterPage = () => {
                     </IconButton>
                   </Typography>
                 </InfoBox>
-                <Typography variant="h3">
-                  {character.firstname} {character.lastname}
+                <Typography
+                  variant="h3"
+                  sx={{
+                    marginLeft: "40px",
+                    "&:hover": {
+                      "& .MuiIconButton-root": {
+                        visibility: "visible",
+                      },
+                    },
+                  }}
+                >
+                  {character.firstname} {character.lastname}{" "}
+                  <IconButton
+                    onClick={() => setOpenChangeName(true)}
+                    sx={{ visibility: "hidden" }}
+                  >
+                    <EditOutlinedIcon />
+                  </IconButton>
                 </Typography>
                 <StatsTab
                   character={character}
@@ -174,6 +193,15 @@ const CharacterPage = () => {
           onClose={() => setOpenAddXpModal(false)}
           character={character}
           reload={() => setReload(reload + 1)}
+        />
+      )}
+      {character && (
+        <CharacterCreationModal
+          open={openChangeName}
+          onClose={() => setOpenChangeName(false)}
+          refetch={() => setReload(reload + 1)}
+          character={character}
+          update
         />
       )}
     </Page>
