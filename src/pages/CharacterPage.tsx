@@ -10,6 +10,8 @@ import Page from "./Page";
 import AddExperienceModal from "../components/AddExperienceModal";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import CharacterCreationModal from "../components/CharacterCreationModal";
+import OverviewTab from "../components/characterTab/OverviewTab";
+import { useTranslation } from "react-i18next";
 
 const lightBackground = "#FEFCEC";
 
@@ -35,9 +37,15 @@ const CustomTabs = styled(Tabs)({
   paddingTop: "50px",
 });
 
-const InfoBox = styled(Box)({
+const InfoBox = styled("div")({
   display: "flex",
   justifyContent: "space-around",
+  alignItems: "center",
+});
+
+const ExperienceBox = styled("div")({
+  display: "flex",
+  alignItems: "center",
 });
 
 const CustomTab = styled(Tab)({
@@ -78,6 +86,7 @@ const CharacterPage = () => {
   const [reload, setReload] = useState<number>(0);
   const [openAddXpModal, setOpenAddXpModal] = useState<boolean>(false);
   const [openChangeName, setOpenChangeName] = useState<boolean>(false);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     const id = location.pathname.replace("/character/", "");
@@ -88,7 +97,9 @@ const CharacterPage = () => {
   return (
     <Page
       title={
-        character ? `${character.firstname} ${character.lastname}` : "loading"
+        character
+          ? `${character.firstname} ${character.lastname}`
+          : t("title.loading")
       }
     >
       <Box display="flex" sx={{ height: "100%" }}>
@@ -107,7 +118,7 @@ const CharacterPage = () => {
           <CustomTab
             label={
               <Label variant="body2" className="Stroke-text">
-                Stats
+                {t("tab.overview")}
               </Label>
             }
             className={tabValue === 0 ? "active" : ""}
@@ -116,7 +127,7 @@ const CharacterPage = () => {
           <CustomTab
             label={
               <Label variant="body2" className="Stroke-text">
-                Equipements
+                {t("tab.stats")}
               </Label>
             }
             className={tabValue === 1 ? "active" : ""}
@@ -125,7 +136,7 @@ const CharacterPage = () => {
           <CustomTab
             label={
               <Label variant="body2" className="Stroke-text">
-                Capacités
+                {t("tab.equipments")}
               </Label>
             }
             className={tabValue === 2 ? "active" : ""}
@@ -134,10 +145,19 @@ const CharacterPage = () => {
           <CustomTab
             label={
               <Label variant="body2" className="Stroke-text">
-                Inventaire
+                {t("tab.skills")}
               </Label>
             }
             className={tabValue === 3 ? "active" : ""}
+            disableRipple
+          />
+          <CustomTab
+            label={
+              <Label variant="body2" className="Stroke-text">
+                {t("tab.inventory")}
+              </Label>
+            }
+            className={tabValue === 4 ? "active" : ""}
             disableRipple
           />
         </CustomTabs>
@@ -147,17 +167,22 @@ const CharacterPage = () => {
               <>
                 <InfoBox>
                   <Typography variant="subtitle1">
-                    Classe: {character.archetype}
+                    {t("common.class")}: {character.archetype}
                   </Typography>
                   <Typography variant="subtitle1">
-                    Niveau: {character.level}
+                    {t("common.level")}: {character.level}
                   </Typography>
-                  <Typography variant="subtitle1">
-                    Experience: {character.experience}
-                    <IconButton onClick={() => setOpenAddXpModal(true)}>
+                  <ExperienceBox>
+                    <Typography variant="subtitle1">
+                      {t("common.experience")}: {character.experience}
+                    </Typography>
+                    <IconButton
+                      onClick={() => setOpenAddXpModal(true)}
+                      size="small"
+                    >
                       <AddRoundedIcon />
                     </IconButton>
-                  </Typography>
+                  </ExperienceBox>
                 </InfoBox>
                 <Typography
                   variant="h3"
@@ -178,10 +203,13 @@ const CharacterPage = () => {
                     <EditOutlinedIcon />
                   </IconButton>
                 </Typography>
-                <StatsTab
-                  character={character}
-                  reload={() => setReload(reload + 1)}
-                />
+                {tabValue === 0 && <OverviewTab character={character} />}
+                {tabValue === 1 && (
+                  <StatsTab
+                    character={character}
+                    reload={() => setReload(reload + 1)}
+                  />
+                )}
               </>
             )}
           </TabsContainer>

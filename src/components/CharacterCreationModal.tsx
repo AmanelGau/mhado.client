@@ -13,6 +13,7 @@ import {
   CharacterType,
 } from "../type/character.type";
 import api from "../_api/api";
+import { useTranslation } from "react-i18next";
 
 const CustomModal = styled(Modal)({
   display: "flex",
@@ -87,6 +88,7 @@ const CharacterCreationModal: React.FC<{
   update?: boolean;
   character?: CharacterType;
 }> = ({ open, onClose, refetch, update, character }) => {
+  const { t } = useTranslation("common");
   const [form, dispatchForm] = useReducer(
     reducer,
     intialFormValues,
@@ -128,23 +130,23 @@ const CharacterCreationModal: React.FC<{
     <CustomModal open={open} onClose={onClose}>
       <ModalPaper>
         <FormContainer>
-          <Typography variant="h4">Créer un nouveau personnage</Typography>
+          <Typography variant="h4">{t("home.create.label")}</Typography>
           <TextField
-            label="Prénom"
+            label={t("common.firstname")}
             value={form.firstname}
             onChange={(event) =>
               dispatchForm({ type: "firstname", payload: event.target.value })
             }
           />
           <TextField
-            label="Nom"
+            label={t("common.lastname")}
             value={form.lastname}
             onChange={(event) =>
               dispatchForm({ type: "lastname", payload: event.target.value })
             }
           />
           <TextField
-            label="Classe"
+            label={t("common.class")}
             value={form.archetype}
             onChange={(event) =>
               dispatchForm({ type: "archetype", payload: event.target.value })
@@ -152,7 +154,7 @@ const CharacterCreationModal: React.FC<{
           />
           <ButtonContainer>
             <FormButton variant="outlined" onClick={() => onSubmit(form)}>
-              {update ? "Modifier" : "Créer"}
+              {update ? t("common.button.modify") : t("common.button.create")}
             </FormButton>
             <FormButton
               variant="outlined"
@@ -163,7 +165,7 @@ const CharacterCreationModal: React.FC<{
                 onClose();
               }}
             >
-              Annuler
+              {t("common.button.cancel")}
             </FormButton>
           </ButtonContainer>
         </FormContainer>

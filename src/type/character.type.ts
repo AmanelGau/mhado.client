@@ -19,10 +19,18 @@ type StatsType = {
   strength: number;
 };
 
+type StatType =
+  | "strength"
+  | "agility"
+  | "resistance"
+  | "exploration"
+  | "luck"
+  | "spirit";
+
 type CharacterCreationFormType = {
   firstname: string;
   lastname: string;
   archetype: string;
 };
 
-export type { CharacterType, StatsType, CharacterCreationFormType };
+export type { CharacterType, StatsType, StatType, CharacterCreationFormType };

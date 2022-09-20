@@ -1,0 +1,48 @@
+{
+  "title": {
+    "main": "L'archipel des onzes",
+    "select_page": "Selection de personnage"
+  },
+  "common": {
+    "firstname": "Prénom",
+    "lastname": "Nom",
+    "class": "Classe",
+    "level": "Niveau",
+    "experience": "Experience",
+    "button": {
+      "create": "Créer",
+      "modify": "Modifier",
+      "save": "Enregister",
+      "cancel": "Annuler"
+    },
+    "classes": {}
+  },
+  "home": {
+    "create": {
+      "label": "Créer un nouveau personnage"
+    }
+  },
+  "tab": {
+    "overview": "Résumé",
+    "stats": "Statistiques",
+    "equipments": "Equipements",
+    "skills": "Capacités",
+    "inventory": "Inventaire"
+  },
+  "stat_table": {
+    "label": "Statistique",
+    "points": "Points",
+    "total": "Total",
+    "roll": "Jet",
+    "actions": "Actions",
+    "stat_points_left": "Points de stats restant",
+    "stats": {
+      "strength": "Force",
+      "agility": "Agilité",
+      "resistance": "Résistance",
+      "exploration": "Exploration",
+      "luck": "Chance",
+      "spirit": "Esprit"
+    }
+  }
+}

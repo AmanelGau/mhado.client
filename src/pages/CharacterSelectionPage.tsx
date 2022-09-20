@@ -6,6 +6,7 @@ import CharacterItem from "../components/CharacterItem";
 import { CharacterType } from "../type/character.type";
 import api from "../_api/api";
 import Page from "./Page";
+import { useTranslation } from "react-i18next";
 
 const CharacterContainer = styled("div")({
   display: "flex",
@@ -20,6 +21,7 @@ const CharacterSelectionPage = () => {
   const [refetch, setRefetch] = useState<number>(0);
   const [openCharacterCreation, setOpenCharacterCreation] =
     useState<boolean>(false);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     api.get("/character").then((res) => {
@@ -28,13 +30,13 @@ const CharacterSelectionPage = () => {
   }, [refetch]);
 
   return (
-    <Page title="Selection de personnage">
+    <Page title={t("title.select_page")}>
       <CharacterContainer>
         <Button
           onClick={() => setOpenCharacterCreation(true)}
           variant="outlined"
         >
-          Créer un nouveau personnage
+          {t("home.create.label")}
         </Button>
       </CharacterContainer>
 
