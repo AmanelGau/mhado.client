@@ -15,7 +15,23 @@
       "save": "Enregister",
       "cancel": "Annuler"
     },
-    "classes": {}
+    "classes": {
+      "warrior": "Guerrier",
+      "bladeMaster": "Maître-lame",
+      "assassin": "Assassin",
+      "bigGameHunter": "Chasseur de gros gibier",
+      "magicHunter": "Chasseur de magie",
+      "protector": "Protecteur",
+      "dancer": "Danseur",
+      "gladiator": "Gladiateur",
+      "barbarian": "Barbare",
+      "ninja": "Ninja",
+      "scout": "Éclaireur",
+      "bard": "Barde",
+      "trapper": "Trappeur",
+      "doctor": "Médecin",
+      "oracle": "Oracle"
+    }
   },
   "home": {
     "create": {
@@ -43,6 +59,22 @@
       "exploration": "Exploration",
       "luck": "Chance",
       "spirit": "Esprit"
+    },
+    "select": {
+      "label": "Ile",
+      "island": {
+        "1": "Tauroc-Laudma",
+        "2": "Sephira",
+        "3": "Valzera",
+        "4": "Vilsuvia",
+        "5": "Hyoga",
+        "6": "Alduria",
+        "7": "Auro-Zali",
+        "8": "Julvi-Riva",
+        "9": "Viziel",
+        "10": "Thiel",
+        "11": "Nodova"
+      }
     }
   }
 }

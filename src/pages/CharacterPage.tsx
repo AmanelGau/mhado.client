@@ -167,7 +167,8 @@ const CharacterPage = () => {
               <>
                 <InfoBox>
                   <Typography variant="subtitle1">
-                    {t("common.class")}: {character.archetype}
+                    {t("common.class")}:&nbsp;
+                    {t(`common.classes.${character.archetype}`)}
                   </Typography>
                   <Typography variant="subtitle1">
                     {t("common.level")}: {character.level}

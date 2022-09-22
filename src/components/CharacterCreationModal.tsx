@@ -1,8 +1,12 @@
 import {
   Box,
   Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
   Modal,
   Paper,
+  Select,
   styled,
   TextField,
   Typography,
@@ -14,6 +18,7 @@ import {
 } from "../type/character.type";
 import api from "../_api/api";
 import { useTranslation } from "react-i18next";
+import { Archetypes } from "../enums/archetypes";
 
 const CustomModal = styled(Modal)({
   display: "flex",
@@ -145,13 +150,33 @@ const CharacterCreationModal: React.FC<{
               dispatchForm({ type: "lastname", payload: event.target.value })
             }
           />
-          <TextField
-            label={t("common.class")}
-            value={form.archetype}
-            onChange={(event) =>
-              dispatchForm({ type: "archetype", payload: event.target.value })
-            }
-          />
+          <FormControl sx={{ minWidth: 120 }}>
+            <InputLabel id="class-select">{t("common.class")}</InputLabel>
+            <Select
+              labelId="class-select"
+              id="class-select"
+              value={form.archetype}
+              label={t("common.class")}
+              onChange={(event) =>
+                dispatchForm({ type: "archetype", payload: event.target.value })
+              }
+              sx={{ textAlign: "start" }}
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    maxHeight: 48 * 4.5 + 8,
+                    width: 250,
+                  },
+                },
+              }}
+            >
+              {Object.values(Archetypes).map((archetype) => (
+                <MenuItem value={archetype.label}>
+                  {t(`common.classes.${archetype.label}`)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <ButtonContainer>
             <FormButton variant="outlined" onClick={() => onSubmit(form)}>
               {update ? t("common.button.modify") : t("common.button.create")}
