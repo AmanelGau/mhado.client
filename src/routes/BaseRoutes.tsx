@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import CharacterPage from "../pages/CharacterPage";
 import CharacterSelectionPage from "../pages/CharacterSelectionPage";
-import { CssBaseline, styled } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 
 const BaseRoutes = () => {
   return (
